@@ -1,0 +1,20 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+    Post Update
+{% endblock title %}
+
+
+{% block content %}
+    {% if post.author == user %}
+        <h1>Редактирование объявления</h1>
+        <hr>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save" />
+        </form>
+    {% else %}
+        <h1>Ошибка!</h1>
+    {% endif %}
+{% endblock content %}

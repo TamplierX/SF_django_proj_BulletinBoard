@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Response
+{% endblock title %}
+
+
+{% block content %}
+    {% if response.author == user  or response.post.author == user or response.accepted == True %}
+        <br/>
+        <h3>Отклик к объявлению : {{ response.post.title }}</h3>
+        <h4>{{ response.text }}</h4><br>
+        <h5>{{ response.date_create|date:'d.m.Y' }}</h5><br>
+    {% else %}
+        <h1>Ошибка!</h1>
+    {% endif %}
+
+    {% if response.post.author == user and response.accepted == False %}
+        <button><a class="nav-link" href="{{ request.build_absolute_uri }}/accept">Принять отклик</a></button>
+        <button><a class="nav-link" href="{% url 'response_delete' pk=response.pk %}">Удалить отклик</a></button>
+
+    {% endif %}
+
+{% endblock content %}
